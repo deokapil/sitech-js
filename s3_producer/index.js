@@ -4,10 +4,10 @@ require("dotenv").config();
 
 async function main() {
   // get s3 cleient
-  const s3 = new awsUtils.s3Client();
-  const bucket = await s3.getBucketList(process.env.AWS_SAMPLE_BUCKET);
-  for (let i = 0; i < bucket.Contents.length; i++) {
-    console.log(bucket.Contents[i].Key);
+  const s3 = new awsUtils.s3Utils();
+  const bucketList = await s3.getBucketList(process.env.AWS_SAMPLE_BUCKET);
+  for (let i = 0; i < bucketList.length; i++) {
+    console.log(bucketList[i].Key);
   }
   //   console.log(bucket);
   // get List of bucket from s3

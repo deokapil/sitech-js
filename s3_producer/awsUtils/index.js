@@ -1,3 +1,3 @@
-const s3Client = require("./S3Client")
+const s3Utils = require("./S3Utils");
 
-exports.s3Client = s3Client
+exports.s3Utils = s3Utils;
