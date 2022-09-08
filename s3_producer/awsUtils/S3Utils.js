@@ -72,6 +72,7 @@ class S3Utils {
       throw err;
     }
   }
+
   async deleteS3Obj(Bucket, Key) {
     const bucketParams = {
       Bucket,
@@ -81,7 +82,7 @@ class S3Utils {
       const data = await this.client.send(
         new DeleteObjectCommand(bucketParams)
       );
-      logger.info("Success. Object deleted.", data);
+      logger.info(`Success. Object with key ${Key} deleted.`);
       return data;
     } catch (err) {
       logger.error("Error", err);
