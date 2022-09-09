@@ -9,7 +9,7 @@ async function main() {
   for (let i = 0; i < bucketList.length; i++) {
     console.log(bucketList[i].Key);
   }
-  //   console.log(bucket);
+  // console.log(bucket);
   // get List of bucket from s3
   // for each object in list
   // put object in another bucket
