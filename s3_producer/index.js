@@ -1,5 +1,5 @@
-const logger = require("./logger");
-const awsUtils = require("./awsUtils");
+const logger = require("logger");
+const { s3Utils } = require("awsutils");
 require("dotenv").config();
 const crypto = require("crypto");
 
@@ -9,7 +9,7 @@ async function main() {
   const cronId = crypto.randomUUID();
   logger.info(`${cronId}: Producer start polling for transactions`);
 
-  const s3 = new awsUtils.s3Utils();
+  const s3 = new s3Utils();
   const bucketList = await s3.getBucketList(process.env.AWS_SAMPLE_BUCKET);
 
   logger.info(`${cronId} ${bucketList ? bucketList.length : 0}: files found`);

@@ -1,5 +1,5 @@
 {
-  "name": "s3_connector",
+  "name": "s3_consumer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "awsutils": "file:../jslib/awsUtils",
     "dotenv": "^16.0.2",
     "fastify": "^4.5.3",
-    "logger": "file:../jslib/logger"
+    "logger": "file:../jslib/logger",
+    "x12-parser": "^1.1.1"
   }
 }

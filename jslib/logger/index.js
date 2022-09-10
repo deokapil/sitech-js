@@ -3,6 +3,7 @@ const prodLogger = require("./prodLogger");
 
 let logger = null;
 
+console.log(process.env);
 if (process.env.NODE_ENV === "dev") {
   logger = devLogger();
 }

@@ -33,6 +33,18 @@ class S3Utils {
       throw error;
     }
   }
+  async getObectStream(bucket, objId) {
+    const objParams = { Bucket: bucket, Key: objId };
+    try {
+      const data = await this.client.send(new GetObjectCommand(objParams));
+      return data;
+    } catch (err) {
+      logger.error(
+        `Failed to fetch Bucket List from bucket ${bucket} : ${err}`
+      );
+      throw err;
+    }
+  }
   async getObect(bucket, objId) {
     const objParams = { Bucket: bucket, Key: objId };
     try {
