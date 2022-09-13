@@ -5,7 +5,9 @@ const {
   PutObjectCommand,
   DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
+const { Upload } = require("@aws-sdk/lib-storage");
 const logger = require("../logger");
+const { PassThrough, pipeline } = require("node:stream");
 
 class S3Utils {
   constructor() {
@@ -42,6 +44,26 @@ class S3Utils {
       logger.error(
         `Failed to fetch Bucket List from bucket ${bucket} : ${err}`
       );
+      throw err;
+    }
+  }
+  async uploadObectStream(bucket, objId, stream) {
+    const passThrough = new PassThrough();
+    pipeline(stream, passThrough, () => {});
+
+    try {
+      var bucketParams = { Bucket: bucket, Key: objId, Body: passThrough };
+      const parallelUploads3 = new Upload({
+        client: this.client,
+        queueSize: 1, // optional concurrency configuration
+        leavePartsOnError: false, // optional manually handle dropped parts
+        params: bucketParams,
+      });
+      const data = await parallelUploads3.done();
+      console.log(data);
+      return data;
+    } catch (err) {
+      logger.error(`Failed to upload to ${bucket} : ${err}`);
       throw err;
     }
   }
