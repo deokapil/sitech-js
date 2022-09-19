@@ -13,6 +13,7 @@
   "dependencies": {
     "awsutils": "file:../jslib/awsUtils",
     "dotenv": "^16.0.2",
+    "lodash": "^4.17.21",
     "logger": "file:../jslib/logger",
     "ssh2-sftp-client": "^9.0.4"
   }
