@@ -38,6 +38,13 @@ class SFTPUtils {
       throw `Failed to create Read stream for file ${remotePath} : ${err}`;
     }
   }
+  async deleteFile(remotePath) {
+    try {
+      return this.sftp.delete(remotePath);
+    } catch (err) {
+      throw `Failed to delete file ${remotePath} : ${err}`;
+    }
+  }
 }
 
 module.exports = SFTPUtils;

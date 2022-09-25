@@ -12,6 +12,7 @@ import {
 import { useRef } from "react";
 import { useValue } from "../../context/ContextProvider";
 import PasswordField from "./PasswordField";
+import { login } from "../../actions/users";
 
 const Login = () => {
   const {
@@ -31,6 +32,7 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     console.log(email, password);
+    return login({ email, password }, dispatch);
   };
   return (
     <Dialog open={openLogin} onClose={handleClose}>

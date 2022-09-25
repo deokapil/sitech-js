@@ -10,13 +10,7 @@ const logger = require("../logger");
 const { PassThrough, pipeline } = require("node:stream");
 
 class S3Utils {
-  constructor() {
-    const configParams = {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: process.env.AWS_REGION,
-    };
-
+  constructor(configParams) {
     this.client = new S3Client({ credentials: configParams });
   }
 

@@ -5,6 +5,7 @@ import {
   useReducer,
   useRef,
 } from "react";
+import { serverLogin } from "../api/auth";
 import reducer from "./reducer";
 
 const initialState = {
@@ -22,6 +23,17 @@ export const useValue = () => {
 };
 const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    serverLogin().then((currentUser, err) => {
+      if (currentUser) {
+        dispatch({ type: "UPDATE_USER", payload: currentUser });
+      }
+      if (err) {
+        return null;
+      }
+    });
+  }, []);
 
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>

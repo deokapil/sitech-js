@@ -9,7 +9,7 @@
   "authentication": {
     "entity": "user",
     "service": "users",
-    "secret": "oSTrg47BuT4sldr+70iVB7QVM6k=",
+    "secret": "4h1xwAhJnhY/G76fW7n/3ZFqsZg=",
     "authStrategies": [
       "jwt",
       "local"
@@ -28,5 +28,5 @@
       "passwordField": "password"
     }
   },
-  "mongodb": "mongodb://localhost:27017/backend"
+  "nedb": "../data"
 }

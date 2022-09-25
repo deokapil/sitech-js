@@ -1,6 +1,6 @@
-# backend
+# sitech-backend
 
-> Backend to Sitech
+> 
 
 ## About
 
@@ -14,7 +14,7 @@ Getting up and running is as easy as 1, 2, 3.
 2. Install your dependencies
 
     ```
-    cd path/to/backend
+    cd path/to/sitech-backend
     npm install
     ```
 

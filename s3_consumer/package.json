@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=dev node index.js",
+    "dev": "NODE_ENV=dev nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
     "dotenv": "^16.0.2",
     "fastify": "^4.5.3",
     "logger": "file:../jslib/logger",
+    "nodemon": "^2.0.20",
     "x12-parser": "^1.1.1"
   }
 }

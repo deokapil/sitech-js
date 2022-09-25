@@ -9,6 +9,8 @@ const reducer = (state, action) => {
       return { ...state, loading: true };
     case "END_LOADING":
       return { ...state, loading: false };
+    case "UPDATE_USER":
+      return { ...state, currentUser: action.payload };
 
     case "UPDATE_ALERT":
       return { ...state, alert: action.payload };

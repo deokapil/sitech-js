@@ -1,4 +1,4 @@
-const { Service } = require('feathers-mongoose');
+const { Service } = require('feathers-nedb');
 
 exports.Users = class Users extends Service {
   

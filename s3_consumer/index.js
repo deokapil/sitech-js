@@ -7,8 +7,36 @@ const fastify = require("fastify")({ logger: true });
 const { X12parser } = require("x12-parser");
 const { createReadStream } = require("fs");
 
+const configParamsS3 = {
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+};
+
+const s3 = new s3Utils(configParamsS3);
+
 // Declare a route
 fastify.get("/", async (request, reply) => {
+  const stream = await s3.getObectStream(process.env.AWS_BUCKET_NAME, key);
+
+  const someValue = await check(stream.Body);
+  // console.log();
+  return { hello: someValue };
+});
+
+fastify.post("/consume", async (request, reply) => {
+  const key = request.body.js.uploaded.Key;
+  const stream = await s3.getObectStream(process.env.AWS_BUCKET_NAME, key);
+  const someValue = await check(stream.Body);
+  const processedKey = `processed/${key.split("/").at(-1)}`;
+
+  console.log(someValue);
+  const upload = await s3.sendToS3(
+    process.env.AWS_BUCKET_NAME,
+    processedKey,
+    JSON.stringify(someValue)
+  );
+  console.log(upload);
   return { hello: "world" };
 });
 
@@ -21,21 +49,23 @@ async function main() {
   }
 }
 
-async function check() {
+async function check(ediFile) {
   const myParser = new X12parser();
   myParser.on("error", (err) => {
     console.error(err);
   });
-  const ediFile = createReadStream(
-    "/home/baba/edi-io/S4_Hana_EDI_830_Ford_SCD_IN_X12_INPUT.txt"
-  );
-  ediFile.on("error", (err) => {
-    console.error(err);
-  });
 
-  // Handle events from the parser
-  ediFile.pipe(myParser).on("data", (data) => {
-    console.log(data);
+  const segments = [];
+
+  return new Promise((resolve, reject) => {
+    ediFile
+      .pipe(myParser)
+      .on("data", (data) => {
+        segments.push(data);
+      })
+      .on("end", () => {
+        resolve(segments);
+      });
   });
 }
-check();
+main();
