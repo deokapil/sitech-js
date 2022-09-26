@@ -13,6 +13,7 @@ const initialState = {
   openLogin: false,
   loading: false,
   alert: { open: false, severity: "info", message: "" },
+  transactions: [],
   section: 0,
 };
 

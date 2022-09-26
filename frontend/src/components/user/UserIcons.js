@@ -1,6 +1,7 @@
 import React from "react";
 import { Mail, Notifications } from "@mui/icons-material";
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, Link, Button } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const UserIcons = () => {
   return (
@@ -15,6 +16,15 @@ const UserIcons = () => {
           <Notifications />
         </Badge>
       </IconButton>
+      <Button
+        component={RouterLink}
+        to="/dashboard"
+        variant="contained"
+        color="secondary"
+        sx={{ ml: 2 }}
+      >
+        Dashboard
+      </Button>
     </Box>
   );
 };

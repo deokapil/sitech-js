@@ -15,6 +15,9 @@ const reducer = (state, action) => {
     case "UPDATE_ALERT":
       return { ...state, alert: action.payload };
 
+    case "UPDATE_TRANSACTIONS":
+      return { ...state, transactions: action.payload };
+
     default:
       throw new Error("No matched action!");
   }
