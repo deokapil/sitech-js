@@ -16,6 +16,8 @@
     "dotenv": "^16.0.2",
     "fastify": "^4.5.3",
     "logger": "file:../jslib/logger",
+    "luxon": "^3.0.4",
+    "node-fetch": "^2.6.7",
     "nodemon": "^2.0.20",
     "x12-parser": "^1.1.1"
   }

@@ -22,7 +22,7 @@ const Transactions = () => {
 
   const columns = useMemo(
     () => [
-      { field: "tranSet", headerName: "Tran Set", width: 80 },
+      { field: "tranSet", headerName: "Tran Set", width: 100 },
       { field: "direction", headerName: "Direction", width: 90 },
       { field: "tradingPartner", headerName: "Trading Partner", width: 220 },
       {
@@ -37,6 +37,7 @@ const Transactions = () => {
         headerName: "Actions",
         type: "actions",
         renderCell: (params) => <S3DownloadButton {...{ params }} />,
+        width: 220,
       },
     ],
     [rowId]

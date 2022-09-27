@@ -1,17 +1,31 @@
 const logger = require("logger");
 const { s3Utils } = require("awsutils");
 require("dotenv").config();
-
 const fastify = require("fastify")({ logger: true });
-
 const { X12parser } = require("x12-parser");
-const { createReadStream } = require("fs");
+const { DateTime } = require("luxon");
+
+const fetch = require("node-fetch");
 
 const configParamsS3 = {
   accessKeyId: process.env.AWS_ACCESS_KEY,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION,
 };
+
+async function postJson(js, url) {
+  try {
+    const response = await fetch(url, {
+      method: "post",
+      body: JSON.stringify(js),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    logger.info(`${log.cronId}: Failed to connect to ${url}: ${err}`);
+  }
+}
 
 const s3 = new s3Utils(configParamsS3);
 
@@ -35,6 +49,18 @@ fastify.post("/consume", async (request, reply) => {
     process.env.AWS_BUCKET_NAME,
     processedKey,
     JSON.stringify(someValue)
+  );
+  const infGateway = await postJson(
+    {
+      from: "consumer",
+      key: processedKey,
+      tranSet: 830,
+      direction: "inbound",
+      tradingPartner: "ABCD Systems",
+      recTime: DateTime.now().valueOf(),
+      status: "success",
+    },
+    `${process.env.API_GATEWAY_URL}/trans-logs`
   );
   console.log(upload);
   return { hello: "world" };
