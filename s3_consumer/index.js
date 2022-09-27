@@ -31,11 +31,8 @@ const s3 = new s3Utils(configParamsS3);
 
 // Declare a route
 fastify.get("/", async (request, reply) => {
-  const stream = await s3.getObectStream(process.env.AWS_BUCKET_NAME, key);
-
-  const someValue = await check(stream.Body);
   // console.log();
-  return { hello: someValue };
+  return { hello: "ok" };
 });
 
 fastify.post("/consume", async (request, reply) => {
